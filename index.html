@@ -1,8 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
+    <!-- Адаптация для мобильных телефонов -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SellAI - Аналитик для селлеров</title>
     <style>
         body {
@@ -11,8 +12,10 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh; /* Исправлено для мобилок */
             margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
         }
         .container {
             background: white;
@@ -22,31 +25,47 @@
             text-align: center;
             max-width: 500px;
             width: 100%;
+            box-sizing: border-box;
         }
         h1 { color: #333; margin-top: 0;}
         p { color: #666; font-size: 15px; line-height: 1.5; margin-bottom: 30px;}
-        .marketplaces { display: flex; justify-content: center; gap: 20px; margin-bottom: 25px; }
+        .marketplaces { display: flex; justify-content: center; gap: 15px; margin-bottom: 25px; }
+       
+        /* Стили кнопок маркетплейсов */
         .btn-mp {
             padding: 12px 25px;
-            border: none;
+            border: 2px solid transparent;
             border-radius: 8px;
             cursor: pointer;
             font-weight: bold;
             font-size: 16px;
             transition: 0.2s;
+            opacity: 0.5; /* Неактивные кнопки полупрозрачные */
+        }
+        .btn-mp.active {
+            opacity: 1; /* Выбранная кнопка яркая */
+            transform: scale(1.05);
         }
         .ozon { background-color: #005bff; color: white; }
-        .ozon:hover { background-color: #004ecc; }
+        .ozon.active { box-shadow: 0 4px 12px rgba(0,91,255,0.4); }
+       
         .wb { background-color: #cb11ab; color: white; }
-        .wb:hover { background-color: #a30e89; }
-        input[type="text"] {
-            width: 90%;
-            padding: 12px;
+        .wb.active { box-shadow: 0 4px 12px rgba(203,17,171,0.4); }
+       
+        /* Стили формы */
+        form { display: flex; flex-direction: column; width: 100%; }
+       
+        input[type="password"] {
+            width: 100%;
+            padding: 15px;
             margin-bottom: 25px;
             border: 1px solid #ccc;
             border-radius: 8px;
-            font-size: 14px;
+            font-size: 15px;
+            box-sizing: border-box;
         }
+        input[type="password"]:focus { outline: none; border-color: #28a745; }
+       
         .btn-audit {
             background-color: #28a745;
             color: white;
@@ -60,6 +79,13 @@
             transition: 0.2s;
         }
         .btn-audit:hover { background-color: #218838; }
+       
+        /* Текст для доверия (Trust badge) */
+        .security-notice {
+            font-size: 13px;
+            color: #888;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
@@ -68,14 +94,73 @@
         <p>Введите API-ключ вашего кабинета, чтобы нейросеть <b>SellAI</b> могла проанализировать юнит-экономику, конкурентов и предложить точки роста прибыли.</p>
        
         <div class="marketplaces">
-            <button class="btn-mp ozon">Ozon</button>
-            <button class="btn-mp wb">Wildberries</button>
+            <button type="button" class="btn-mp ozon active" id="btn-ozon">Ozon</button>
+            <button type="button" class="btn-mp wb" id="btn-wb">Wildberries</button>
         </div>
 
-        <input type="text" placeholder="Ваш API-ключ (только для чтения)">
-       
-        <button class="btn-audit">ПРОВЕСТИ ИИ-АУДИТ МАГАЗИНА</button>
+        <!-- Обернули в форму -->
+        <form id="auditForm">
+            <!-- Скрытое поле, чтобы понимать какой маркетплейс выбран -->
+            <input type="hidden" id="selectedMp" value="ozon">
+           
+            <!-- Поле типа password для безопасности API-ключа -->
+            <input type="password" id="apiKey" placeholder="Ваш API-ключ (Read-only)" required>
+           
+            <button type="submit" class="btn-audit" id="submitBtn">ПРОВЕСТИ ИИ-АУДИТ МАГАЗИНА</button>
+        </form>
+
+        <!-- Сообщение для успокоения селлеров -->
+        <div class="security-notice">
+            🔒 Ключ используется исключительно в режиме чтения. Данные не передаются третьим лицам.
+        </div>
     </div>
+
+    <!-- Добавляем скрипт (логику), чтобы всё "ожило" -->
+    <script>
+        const btnOzon = document.getElementById('btn-ozon');
+        const btnWb = document.getElementById('btn-wb');
+        const hiddenInput = document.getElementById('selectedMp');
+        const form = document.getElementById('auditForm');
+        const submitBtn = document.getElementById('submitBtn');
+
+        // Логика переключения кнопок маркетплейсов
+        btnOzon.addEventListener('click', function() {
+            btnOzon.classList.add('active');
+            btnWb.classList.remove('active');
+            hiddenInput.value = 'ozon';
+            document.body.style.backgroundColor = '#f0f4ff'; // Легкий синий оттенок фона
+        });
+
+        btnWb.addEventListener('click', function() {
+            btnWb.classList.add('active');
+            btnOzon.classList.remove('active');
+            hiddenInput.value = 'wb';
+            document.body.style.backgroundColor = '#fdf0fb'; // Легкий фиолетовый оттенок фона
+        });
+
+        // Логика нажатия на зеленую кнопку
+        form.addEventListener('submit', function(event) {
+            event.preventDefault(); // Останавливаем перезагрузку страницы
+           
+            const apiKey = document.getElementById('apiKey').value;
+            const marketplace = hiddenInput.value === 'ozon' ? 'Ozon' : 'Wildberries';
+           
+            // Меняем вид кнопки на процесс загрузки
+            const originalText = submitBtn.innerText;
+            submitBtn.innerText = 'ПОДКЛЮЧЕНИЕ СЕРВЕРОВ...';
+            submitBtn.style.backgroundColor = '#6c757d';
+
+            // Имитируем задержку ответа от сервера (1.5 секунды)
+            setTimeout(() => {
+                alert(`Успешно!\n\nВыбран маркетплейс: ${marketplace}\nВведен ключ: ${apiKey.substring(0, 4)}***\n\nПока это только визуальный тест (MVP). В будущем здесь откроется дашборд SellAI.`);
+               
+                // Возвращаем кнопку в исходное состояние
+                submitBtn.innerText = originalText;
+                submitBtn.style.backgroundColor = '#28a745';
+                form.reset();
+            }, 1500);
+        });
+    </script>
 </body>
 </html>
 
