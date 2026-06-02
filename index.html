@@ -1,29 +1,409 @@
 
-        btnWb.addEventListener('click', function() {
-            btnWb.classList.add('active');
-            btnOzon.classList.remove('active');
-            hiddenInput.value = 'wb';
-            document.body.style.backgroundColor = '#fdf0fb';
-        });
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        form.addEventListener('submit', function(event) {
-            event.preventDefault();
-           
-            const apiKey = document.getElementById('apiKey').value;
-            const marketplace = hiddenInput.value === 'ozon' ? 'Ozon' : 'Wildberries';
-           
-            const originalText = submitBtn.innerText;
-            submitBtn.innerText = 'ПОДКЛЮЧЕНИЕ СЕРВЕРОВ...';
-            submitBtn.style.backgroundColor = '#6c757d';
+<title>SellAI — AI Аналитик маркетплейсов</title>
 
-            setTimeout(() => {
-                alert(`Успешно!\n\nВыбран маркетплейс: ${marketplace}\nВведен ключ: ${apiKey.substring(0, 4)}***\n\nПока это только визуальный тест (MVP). В будущем здесь откроется дашборд SellAI.`);
-               
-                submitBtn.innerText = originalText;
-                submitBtn.style.backgroundColor = '#28a745';
-                form.reset();
-            }, 1500);
-        });
-    </script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Inter',sans-serif;
+}
+
+body{
+min-height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+padding:20px;
+
+background:
+linear-gradient(135deg,#0f172a,#1e293b,#312e81);
+
+overflow:hidden;
+}
+
+body::before{
+content:"";
+position:absolute;
+width:500px;
+height:500px;
+background:#4f46e5;
+filter:blur(180px);
+opacity:.4;
+top:-150px;
+right:-150px;
+}
+
+body::after{
+content:"";
+position:absolute;
+width:450px;
+height:450px;
+background:#06b6d4;
+filter:blur(180px);
+opacity:.3;
+bottom:-150px;
+left:-150px;
+}
+
+.card{
+position:relative;
+z-index:2;
+
+width:100%;
+max-width:520px;
+
+padding:40px;
+
+border-radius:28px;
+
+background:rgba(255,255,255,.08);
+
+backdrop-filter:blur(20px);
+
+border:1px solid rgba(255,255,255,.15);
+
+box-shadow:
+0 20px 50px rgba(0,0,0,.25);
+
+color:white;
+}
+
+.logo{
+width:70px;
+height:70px;
+margin:auto;
+margin-bottom:20px;
+
+border-radius:20px;
+
+background:linear-gradient(135deg,#6366f1,#06b6d4);
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+font-size:32px;
+font-weight:800;
+}
+
+h1{
+font-size:32px;
+font-weight:800;
+text-align:center;
+margin-bottom:12px;
+}
+
+.subtitle{
+text-align:center;
+color:rgba(255,255,255,.75);
+line-height:1.6;
+font-size:15px;
+margin-bottom:30px;
+}
+
+.marketplace-switch{
+display:flex;
+background:rgba(255,255,255,.06);
+padding:6px;
+border-radius:16px;
+margin-bottom:24px;
+}
+
+.market-btn{
+flex:1;
+border:none;
+padding:14px;
+border-radius:12px;
+cursor:pointer;
+
+background:transparent;
+color:rgba(255,255,255,.7);
+
+font-size:15px;
+font-weight:600;
+
+transition:.3s;
+}
+
+.market-btn.active{
+background:white;
+color:#111827;
+
+box-shadow:
+0 10px 20px rgba(0,0,0,.15);
+}
+
+.input-group{
+margin-bottom:20px;
+}
+
+label{
+display:block;
+margin-bottom:10px;
+font-size:14px;
+font-weight:600;
+color:rgba(255,255,255,.8);
+}
+
+input{
+width:100%;
+padding:16px 18px;
+
+border-radius:14px;
+
+border:1px solid rgba(255,255,255,.12);
+
+background:rgba(255,255,255,.08);
+
+color:white;
+font-size:15px;
+}
+
+input::placeholder{
+color:rgba(255,255,255,.45);
+}
+
+input:focus{
+outline:none;
+border-color:#818cf8;
+box-shadow:0 0 0 4px rgba(129,140,248,.25);
+}
+
+.audit-btn{
+width:100%;
+padding:18px;
+
+border:none;
+border-radius:16px;
+
+cursor:pointer;
+
+font-size:15px;
+font-weight:700;
+
+background:linear-gradient(
+135deg,
+#6366f1,
+#4f46e5
+);
+
+color:white;
+
+transition:.3s;
+}
+
+.audit-btn:hover{
+transform:translateY(-2px);
+box-shadow:
+0 15px 30px rgba(99,102,241,.4);
+}
+
+.audit-btn.loading{
+pointer-events:none;
+opacity:.8;
+}
+
+.loader{
+display:none;
+width:18px;
+height:18px;
+border:2px solid rgba(255,255,255,.3);
+border-top:2px solid white;
+border-radius:50%;
+animation:spin 1s linear infinite;
+margin-right:10px;
+}
+
+.audit-btn.loading .loader{
+display:inline-block;
+vertical-align:middle;
+}
+
+@keyframes spin{
+100%{
+transform:rotate(360deg);
+}
+}
+
+.notice{
+margin-top:22px;
+padding:14px;
+
+background:rgba(255,255,255,.05);
+
+border-radius:14px;
+
+font-size:13px;
+line-height:1.6;
+
+color:rgba(255,255,255,.75);
+}
+
+.badge{
+display:inline-flex;
+align-items:center;
+gap:8px;
+
+padding:8px 14px;
+
+background:rgba(34,197,94,.15);
+
+color:#4ade80;
+
+border-radius:999px;
+
+font-size:13px;
+font-weight:600;
+
+margin-bottom:20px;
+}
+
+@media(max-width:600px){
+
+.card{
+padding:28px;
+}
+
+h1{
+font-size:26px;
+}
+
+}
+
+</style>
+</head>
+<body>
+
+<div class="card">
+
+<div class="logo">AI</div>
+
+<div class="badge">
+🔒 Безопасное подключение
+</div>
+
+<h1>Подключите магазин</h1>
+
+<p class="subtitle">
+SellAI автоматически проанализирует продажи,
+юнит-экономику, конкурентов и выявит точки роста прибыли.
+</p>
+
+<div class="marketplace-switch">
+
+<button class="market-btn active" id="ozonBtn">
+Ozon
+</button>
+
+<button class="market-btn" id="wbBtn">
+Wildberries
+</button>
+
+</div>
+
+<form id="auditForm">
+
+<div class="input-group">
+
+<label>API-ключ (Read Only)</label>
+
+<input
+type="password"
+id="apiKey"
+placeholder="Введите API ключ"
+/>
+
+</div>
+
+<button class="audit-btn" id="submitBtn">
+
+<span class="loader"></span>
+
+<span id="btnText">
+ПРОВЕСТИ AI-АУДИТ
+</span>
+
+</button>
+
+</form>
+
+<div class="notice">
+🔐 Ключ используется только для чтения данных.
+SellAI не изменяет настройки магазина и не передаёт информацию третьим лицам.
+</div>
+
+</div>
+
+<script>
+
+let marketplace='ozon';
+
+const ozonBtn=document.getElementById('ozonBtn');
+const wbBtn=document.getElementById('wbBtn');
+
+ozonBtn.onclick=()=>{
+
+marketplace='ozon';
+
+ozonBtn.classList.add('active');
+wbBtn.classList.remove('active');
+
+}
+
+wbBtn.onclick=()=>{
+
+marketplace='wb';
+
+wbBtn.classList.add('active');
+ozonBtn.classList.remove('active');
+
+}
+
+const form=document.getElementById('auditForm');
+const submitBtn=document.getElementById('submitBtn');
+const btnText=document.getElementById('btnText');
+
+form.addEventListener('submit',(e)=>{
+
+e.preventDefault();
+
+submitBtn.classList.add('loading');
+
+btnText.innerText='Подключение к серверам...';
+
+setTimeout(()=>{
+
+submitBtn.classList.remove('loading');
+
+btnText.innerText='ПРОВЕСТИ AI-АУДИТ';
+
+alert(
+`✅ Магазин успешно подключён
+
+Маркетплейс:
+${marketplace === 'ozon' ? 'Ozon' : 'Wildberries'}
+
+Следующий этап:
+загрузка аналитического дашборда SellAI`
+);
+
+form.reset();
+
+},2500);
+
+});
+
+</script>
+
 </body>
 </html>
