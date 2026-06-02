@@ -4,405 +4,205 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SellAI — ИИ аналитика для селлеров</title>
 
-<title>SellAI — AI Аналитик маркетплейсов</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
 
 <style>
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Inter',sans-serif;
-}
-
 body{
-min-height:100vh;
-display:flex;
-justify-content:center;
-align-items:center;
-padding:20px;
-
-background:
-linear-gradient(135deg,#0f172a,#1e293b,#312e81);
-
-overflow:hidden;
+    background:
+    radial-gradient(circle at top left,#3b82f6 0%,transparent 35%),
+    radial-gradient(circle at bottom right,#8b5cf6 0%,transparent 35%),
+    #0f172a;
 }
 
-body::before{
-content:"";
-position:absolute;
-width:500px;
-height:500px;
-background:#4f46e5;
-filter:blur(180px);
-opacity:.4;
-top:-150px;
-right:-150px;
+.glass{
+    backdrop-filter: blur(18px);
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
 }
 
-body::after{
-content:"";
-position:absolute;
-width:450px;
-height:450px;
-background:#06b6d4;
-filter:blur(180px);
-opacity:.3;
-bottom:-150px;
-left:-150px;
+.animate-float{
+    animation: float 6s ease-in-out infinite;
 }
 
-.card{
-position:relative;
-z-index:2;
-
-width:100%;
-max-width:520px;
-
-padding:40px;
-
-border-radius:28px;
-
-background:rgba(255,255,255,.08);
-
-backdrop-filter:blur(20px);
-
-border:1px solid rgba(255,255,255,.15);
-
-box-shadow:
-0 20px 50px rgba(0,0,0,.25);
-
-color:white;
-}
-
-.logo{
-width:70px;
-height:70px;
-margin:auto;
-margin-bottom:20px;
-
-border-radius:20px;
-
-background:linear-gradient(135deg,#6366f1,#06b6d4);
-
-display:flex;
-align-items:center;
-justify-content:center;
-
-font-size:32px;
-font-weight:800;
-}
-
-h1{
-font-size:32px;
-font-weight:800;
-text-align:center;
-margin-bottom:12px;
-}
-
-.subtitle{
-text-align:center;
-color:rgba(255,255,255,.75);
-line-height:1.6;
-font-size:15px;
-margin-bottom:30px;
-}
-
-.marketplace-switch{
-display:flex;
-background:rgba(255,255,255,.06);
-padding:6px;
-border-radius:16px;
-margin-bottom:24px;
-}
-
-.market-btn{
-flex:1;
-border:none;
-padding:14px;
-border-radius:12px;
-cursor:pointer;
-
-background:transparent;
-color:rgba(255,255,255,.7);
-
-font-size:15px;
-font-weight:600;
-
-transition:.3s;
-}
-
-.market-btn.active{
-background:white;
-color:#111827;
-
-box-shadow:
-0 10px 20px rgba(0,0,0,.15);
-}
-
-.input-group{
-margin-bottom:20px;
-}
-
-label{
-display:block;
-margin-bottom:10px;
-font-size:14px;
-font-weight:600;
-color:rgba(255,255,255,.8);
-}
-
-input{
-width:100%;
-padding:16px 18px;
-
-border-radius:14px;
-
-border:1px solid rgba(255,255,255,.12);
-
-background:rgba(255,255,255,.08);
-
-color:white;
-font-size:15px;
-}
-
-input::placeholder{
-color:rgba(255,255,255,.45);
-}
-
-input:focus{
-outline:none;
-border-color:#818cf8;
-box-shadow:0 0 0 4px rgba(129,140,248,.25);
-}
-
-.audit-btn{
-width:100%;
-padding:18px;
-
-border:none;
-border-radius:16px;
-
-cursor:pointer;
-
-font-size:15px;
-font-weight:700;
-
-background:linear-gradient(
-135deg,
-#6366f1,
-#4f46e5
-);
-
-color:white;
-
-transition:.3s;
-}
-
-.audit-btn:hover{
-transform:translateY(-2px);
-box-shadow:
-0 15px 30px rgba(99,102,241,.4);
-}
-
-.audit-btn.loading{
-pointer-events:none;
-opacity:.8;
+@keyframes float{
+    0%,100%{transform:translateY(0px);}
+    50%{transform:translateY(-10px);}
 }
 
 .loader{
-display:none;
-width:18px;
-height:18px;
-border:2px solid rgba(255,255,255,.3);
-border-top:2px solid white;
-border-radius:50%;
-animation:spin 1s linear infinite;
-margin-right:10px;
-}
-
-.audit-btn.loading .loader{
-display:inline-block;
-vertical-align:middle;
+    width:18px;
+    height:18px;
+    border:2px solid rgba(255,255,255,.4);
+    border-top:2px solid white;
+    border-radius:50%;
+    animation:spin .8s linear infinite;
 }
 
 @keyframes spin{
-100%{
-transform:rotate(360deg);
+    100%{
+        transform:rotate(360deg);
+    }
 }
-}
-
-.notice{
-margin-top:22px;
-padding:14px;
-
-background:rgba(255,255,255,.05);
-
-border-radius:14px;
-
-font-size:13px;
-line-height:1.6;
-
-color:rgba(255,255,255,.75);
-}
-
-.badge{
-display:inline-flex;
-align-items:center;
-gap:8px;
-
-padding:8px 14px;
-
-background:rgba(34,197,94,.15);
-
-color:#4ade80;
-
-border-radius:999px;
-
-font-size:13px;
-font-weight:600;
-
-margin-bottom:20px;
-}
-
-@media(max-width:600px){
-
-.card{
-padding:28px;
-}
-
-h1{
-font-size:26px;
-}
-
-}
-
 </style>
+
 </head>
-<body>
+<body class="min-h-screen text-white">
 
-<div class="card">
+<header class="w-full p-5 flex justify-between items-center">
+    
+    <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-r from-blue-500 to-violet-600 flex items-center justify-center font-bold text-lg">
+            S
+        </div>
 
-<div class="logo">AI</div>
+        <div>
+            <div class="font-bold text-xl">SellAI</div>
+            <div class="text-xs text-slate-400">
+                AI Seller Analytics
+            </div>
+        </div>
+    </div>
 
-<div class="badge">
-🔒 Безопасное подключение
+    <div class="glass px-4 py-2 rounded-full text-sm">
+        MVP 1.0
+    </div>
+
+</header>
+
+<main class="flex justify-center items-center px-4 py-12">
+
+<div class="glass w-full max-w-lg rounded-3xl p-8 shadow-2xl animate-float">
+
+    <div class="text-center mb-8">
+
+        <div class="inline-flex items-center gap-2 bg-blue-500/20 text-blue-300 px-4 py-2 rounded-full text-sm mb-4">
+            🚀 AI Аудит Магазина
+        </div>
+
+        <h1 class="text-4xl font-bold mb-3">
+            Подключите кабинет
+        </h1>
+
+        <p class="text-slate-300 text-sm leading-relaxed">
+            SellAI автоматически проанализирует продажи,
+            конкурентов, карточки товаров и найдет точки роста прибыли.
+        </p>
+
+    </div>
+
+    <form id="connectForm" class="space-y-5">
+
+        <div>
+            <label class="block mb-2 text-sm text-slate-300">
+                Маркетплейс
+            </label>
+
+            <select
+                id="marketplace"
+                class="w-full bg-slate-900/50 border border-slate-700 rounded-xl p-4 outline-none focus:border-blue-500 transition"
+            >
+                <option value="Ozon">Ozon</option>
+                <option value="Wildberries">Wildberries</option>
+            </select>
+        </div>
+
+        <div>
+            <label class="block mb-2 text-sm text-slate-300">
+                API-ключ (Read Only)
+            </label>
+
+            <input
+                type="password"
+                id="apiKey"
+                required
+                placeholder="Введите API-ключ"
+                class="w-full bg-slate-900/50 border border-slate-700 rounded-xl p-4 outline-none focus:border-blue-500 transition"
+            >
+        </div>
+
+        <button
+            id="submitBtn"
+            type="submit"
+            class="w-full bg-gradient-to-r from-blue-600 to-violet-600 py-4 rounded-xl font-bold text-lg hover:scale-[1.02] transition-all duration-300 shadow-xl"
+        >
+            ПРОВЕСТИ ИИ-АУДИТ
+        </button>
+
+    </form>
+
+    <div class="mt-6 text-center text-xs text-slate-400">
+        🔒 Ключ используется только для чтения данных
+    </div>
+
 </div>
 
-<h1>Подключите магазин</h1>
+</main>
 
-<p class="subtitle">
-SellAI автоматически проанализирует продажи,
-юнит-экономику, конкурентов и выявит точки роста прибыли.
-</p>
+<div
+id="successModal"
+class="fixed inset-0 hidden bg-black/60 flex items-center justify-center p-4 z-50"
+>
+    <div class="bg-slate-900 border border-slate-700 rounded-3xl p-8 max-w-md w-full text-center">
 
-<div class="marketplace-switch">
+        <div class="text-6xl mb-4">✅</div>
 
-<button class="market-btn active" id="ozonBtn">
-Ozon
-</button>
+        <h2 class="text-2xl font-bold mb-4">
+            Подключение выполнено
+        </h2>
 
-<button class="market-btn" id="wbBtn">
-Wildberries
-</button>
+        <p id="resultText" class="text-slate-300 mb-6"></p>
 
-</div>
+        <button
+            onclick="closeModal()"
+            class="bg-blue-600 px-6 py-3 rounded-xl font-semibold hover:bg-blue-700 transition"
+        >
+            Закрыть
+        </button>
 
-<form id="auditForm">
-
-<div class="input-group">
-
-<label>API-ключ (Read Only)</label>
-
-<input
-type="password"
-id="apiKey"
-placeholder="Введите API ключ"
-/>
-
-</div>
-
-<button class="audit-btn" id="submitBtn">
-
-<span class="loader"></span>
-
-<span id="btnText">
-ПРОВЕСТИ AI-АУДИТ
-</span>
-
-</button>
-
-</form>
-
-<div class="notice">
-🔐 Ключ используется только для чтения данных.
-SellAI не изменяет настройки магазина и не передаёт информацию третьим лицам.
-</div>
-
+    </div>
 </div>
 
 <script>
+const form = document.getElementById("connectForm");
+const btn = document.getElementById("submitBtn");
+const modal = document.getElementById("successModal");
+const resultText = document.getElementById("resultText");
 
-let marketplace='ozon';
+form.addEventListener("submit", function(e){
+    e.preventDefault();
 
-const ozonBtn=document.getElementById('ozonBtn');
-const wbBtn=document.getElementById('wbBtn');
+    const marketplace = document.getElementById("marketplace").value;
+    const apiKey = document.getElementById("apiKey").value;
 
-ozonBtn.onclick=()=>{
+    btn.disabled = true;
 
-marketplace='ozon';
+    btn.innerHTML = `
+        <div class="flex justify-center items-center gap-3">
+            <div class="loader"></div>
+            Подключение...
+        </div>
+    `;
 
-ozonBtn.classList.add('active');
-wbBtn.classList.remove('active');
-
-}
-
-wbBtn.onclick=()=>{
-
-marketplace='wb';
-
-wbBtn.classList.add('active');
-ozonBtn.classList.remove('active');
-
-}
-
-const form=document.getElementById('auditForm');
-const submitBtn=document.getElementById('submitBtn');
-const btnText=document.getElementById('btnText');
-
-form.addEventListener('submit',(e)=>{
-
-e.preventDefault();
-
-submitBtn.classList.add('loading');
-
-btnText.innerText='Подключение к серверам...';
-
-setTimeout(()=>{
-
-submitBtn.classList.remove('loading');
-
-btnText.innerText='ПРОВЕСТИ AI-АУДИТ';
-
-alert(
-`✅ Магазин успешно подключён
-
-Маркетплейс:
-${marketplace === 'ozon' ? 'Ozon' : 'Wildberries'}
-
-Следующий этап:
-загрузка аналитического дашборда SellAI`
-);
-
-form.reset();
-
-},2500);
-
+    // Имитация загрузки перед показом окна успеха
+    setTimeout(() => {
+        resultText.innerHTML = `
+            Маркетплейс: <b>${marketplace}</b><br><br>
+            Ключ: <b>${apiKey.substring(0,4)}****</b><br><br>
+            В следующей версии здесь откроется аналитический дашборд SellAI.
+        `;
+        modal.classList.remove("hidden");
+    }, 2000); 
 });
 
+// Функция, которая закрывает окно (ты её нечаянно удалил)
+function closeModal() {
+    modal.classList.add("hidden");
+    btn.disabled = false;
+    btn.innerHTML = 'ПРОВЕСТИ ИИ-АУДИТ';
+    form.reset();
+}
 </script>
 
 </body>
