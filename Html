@@ -1,0 +1,1524 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мебельные комплектующие и ткани</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --olive-dark: #3d4f2f;
+            --olive-main: #556b2f;
+            --olive-medium: #6b8e23;
+            --olive-light: #8fbc3f;
+            --olive-pale: #c5d89d;
+            --olive-bg: #f0f5e1;
+            --olive-very-light: #f7faef;
+            --white: #ffffff;
+            --text-dark: #2c2c2c;
+            --text-light: #555555;
+            --shadow: 0 4px 20px rgba(61, 79, 47, 0.15);
+            --shadow-hover: 0 8px 30px rgba(61, 79, 47, 0.25);
+            --radius: 16px;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--olive-bg);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        /* ===== HEADER ===== */
+        header {
+            background: linear-gradient(135deg, var(--olive-dark) 0%, var(--olive-main) 50%, var(--olive-medium) 100%);
+            color: white;
+            padding: 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 30px rgba(0,0,0,0.2);
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+        }
+
+        .logo h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .logo p {
+            font-size: 0.8rem;
+            opacity: 0.8;
+            margin-top: 2px;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 10px 24px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: var(--white);
+            color: var(--olive-dark);
+        }
+
+        .btn-primary:hover {
+            background: var(--olive-pale);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(255,255,255,0.3);
+        }
+
+        .btn-secondary {
+            background: rgba(255,255,255,0.15);
+            color: white;
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.25);
+            transform: translateY(-2px);
+        }
+
+        .btn-olive {
+            background: var(--olive-medium);
+            color: white;
+        }
+
+        .btn-olive:hover {
+            background: var(--olive-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .btn-danger {
+            background: #c0392b;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #e74c3c;
+            transform: translateY(-2px);
+        }
+
+        .btn-small {
+            padding: 6px 14px;
+            font-size: 0.85rem;
+            border-radius: 8px;
+        }
+
+        /* ===== NAV ===== */
+        nav {
+            background: rgba(0,0,0,0.15);
+            padding: 0 40px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            max-width: 1400px;
+            margin: 0 auto;
+            gap: 5px;
+        }
+
+        nav ul li a {
+            color: rgba(255,255,255,0.85);
+            text-decoration: none;
+            padding: 12px 20px;
+            display: block;
+            font-weight: 500;
+            transition: all 0.3s;
+            border-bottom: 3px solid transparent;
+        }
+
+        nav ul li a:hover,
+        nav ul li a.active {
+            color: white;
+            background: rgba(255,255,255,0.1);
+            border-bottom-color: var(--olive-pale);
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            background: linear-gradient(135deg, var(--olive-dark) 0%, var(--olive-main) 100%);
+            color: white;
+            padding: 80px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 50%;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -10%;
+            width: 400px;
+            height: 400px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 50%;
+        }
+
+        .hero h2 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto 30px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            margin-top: 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-stat {
+            text-align: center;
+        }
+
+        .hero-stat .number {
+            font-size: 2.5rem;
+            font-weight: 800;
+        }
+
+        .hero-stat .label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* ===== SECTIONS ===== */
+        .section {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 60px 40px;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .section-title h2 {
+            font-size: 2rem;
+            color: var(--olive-dark);
+            margin-bottom: 10px;
+        }
+
+        .section-title p {
+            color: var(--text-light);
+            font-size: 1.05rem;
+        }
+
+        .section-title .divider {
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--olive-medium), var(--olive-light));
+            margin: 15px auto 0;
+            border-radius: 2px;
+        }
+
+        /* ===== CATALOG ===== */
+        .catalog-filters {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 35px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 8px 22px;
+            border: 2px solid var(--olive-pale);
+            background: var(--white);
+            color: var(--olive-main);
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--olive-main);
+            color: white;
+            border-color: var(--olive-main);
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .product-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.4s ease;
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 220px;
+            background: var(--olive-very-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: var(--olive-medium);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-info h3 {
+            font-size: 1.1rem;
+            color: var(--olive-dark);
+            margin-bottom: 8px;
+        }
+
+        .product-info .description {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-bottom: 12px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .product-price {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--olive-main);
+            margin-bottom: 15px;
+        }
+
+        .product-price span {
+            font-size: 0.85rem;
+            font-weight: 400;
+            color: var(--text-light);
+        }
+
+        .product-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .product-actions .btn {
+            flex: 1;
+            justify-content: center;
+            padding: 10px 16px;
+            font-size: 0.9rem;
+        }
+
+        /* ===== ADMIN PANEL ===== */
+        .admin-panel {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .admin-panel.active {
+            display: flex;
+        }
+
+        .admin-content {
+            background: var(--white);
+            border-radius: 20px;
+            width: 90%;
+            max-width: 700px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .admin-header {
+            background: linear-gradient(135deg, var(--olive-dark), var(--olive-medium));
+            color: white;
+            padding: 25px 30px;
+            border-radius: 20px 20px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .admin-header h2 {
+            font-size: 1.4rem;
+        }
+
+        .close-btn {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 1.3rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .close-btn:hover {
+            background: rgba(255,255,255,0.4);
+            transform: rotate(90deg);
+        }
+
+        .admin-body {
+            padding: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--olive-dark);
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid var(--olive-pale);
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s;
+            background: var(--olive-very-light);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--olive-medium);
+            box-shadow: 0 0 0 4px rgba(107, 142, 35, 0.15);
+            background: white;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .image-upload {
+            border: 2px dashed var(--olive-pale);
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: var(--olive-very-light);
+        }
+
+        .image-upload:hover {
+            border-color: var(--olive-medium);
+            background: var(--olive-bg);
+        }
+
+        .image-upload .icon {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+
+        .image-upload p {
+            color: var(--text-light);
+        }
+
+        .image-upload input {
+            display: none;
+        }
+
+        .image-preview {
+            max-width: 100%;
+            max-height: 200px;
+            border-radius: 10px;
+            margin-top: 10px;
+        }
+
+        /* ===== MESSAGES ===== */
+        .messages-section {
+            background: var(--white);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 30px;
+            margin-top: 30px;
+        }
+
+        .message-card {
+            border-left: 4px solid var(--olive-medium);
+            background: var(--olive-very-light);
+            padding: 20px;
+            border-radius: 0 12px 12px 0;
+            margin-bottom: 15px;
+        }
+
+        .message-card .msg-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+
+        .message-card .msg-name {
+            font-weight: 700;
+            color: var(--olive-dark);
+        }
+
+        .message-card .msg-date {
+            color: var(--text-light);
+            font-size: 0.85rem;
+        }
+
+        .message-card .msg-text {
+            color: var(--text-dark);
+        }
+
+        /* ===== CONTACT FORM ===== */
+        .contact-section {
+            background: linear-gradient(135deg, var(--olive-dark), var(--olive-main));
+            color: white;
+            padding: 60px 40px;
+            margin-top: 60px;
+        }
+
+        .contact-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-section h2 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .contact-section > .contact-container > p {
+            text-align: center;
+            opacity: 0.9;
+            margin-bottom: 30px;
+        }
+
+        .contact-form .form-group label {
+            color: rgba(255,255,255,0.9);
+        }
+
+        .contact-form .form-group input,
+        .contact-form .form-group textarea {
+            background: rgba(255,255,255,0.15);
+            border-color: rgba(255,255,255,0.3);
+            color: white;
+        }
+
+        .contact-form .form-group input::placeholder,
+        .contact-form .form-group textarea::placeholder {
+            color: rgba(255,255,255,0.5);
+        }
+
+        .contact-form .form-group input:focus,
+        .contact-form .form-group textarea:focus {
+            border-color: var(--olive-pale);
+            box-shadow: 0 0 0 4px rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.2);
+        }
+
+        .contact-form .btn-submit {
+            width: 100%;
+            padding: 14px;
+            background: var(--white);
+            color: var(--olive-dark);
+            font-size: 1.1rem;
+            font-weight: 700;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .contact-form .btn-submit:hover {
+            background: var(--olive-pale);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: var(--olive-dark);
+            color: rgba(255,255,255,0.8);
+            padding: 40px;
+            text-align: center;
+        }
+
+        footer .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            text-align: left;
+            margin-bottom: 30px;
+        }
+
+        footer h3 {
+            color: var(--olive-pale);
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        footer p, footer a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            line-height: 2;
+        }
+
+        footer a:hover {
+            color: var(--olive-pale);
+        }
+
+        footer .copyright {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 20px;
+            font-size: 0.9rem;
+        }
+
+        /* ===== NOTIFICATIONS ===== */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--olive-medium);
+            color: white;
+            padding: 16px 24px;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+            z-index: 3000;
+            transform: translateX(400px);
+            transition: transform 0.4s ease;
+            font-weight: 600;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification.success {
+            background: #27ae60;
+        }
+
+        .notification.error {
+            background: #e74c3c;
+        }
+
+        /* ===== ADMIN PRODUCTS LIST ===== */
+        .admin-products-list {
+            margin-top: 20px;
+        }
+
+        .admin-product-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 12px;
+            background: var(--olive-very-light);
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+        .admin-product-item img {
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        .admin-product-item .info {
+            flex: 1;
+        }
+
+        .admin-product-item .info h4 {
+            color: var(--olive-dark);
+        }
+
+        .admin-product-item .info p {
+            color: var(--olive-main);
+            font-weight: 700;
+        }
+
+        .admin-product-item .actions {
+            display: flex;
+            gap: 5px;
+        }
+
+        /* ===== MODAL ===== */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: white;
+            border-radius: 20px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, var(--olive-dark), var(--olive-medium));
+            color: white;
+            padding: 20px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-body {
+            padding: 25px;
+        }
+
+        /* ===== EMPTY STATE ===== */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-light);
+        }
+
+        .empty-state .icon {
+            font-size: 4rem;
+            margin-bottom: 15px;
+            opacity: 0.5;
+        }
+
+        .empty-state p {
+            font-size: 1.1rem;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .header-top {
+                padding: 15px 20px;
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .logo h1 {
+                font-size: 1.2rem;
+            }
+
+            nav ul {
+                overflow-x: auto;
+                padding: 0 10px;
+            }
+
+            .hero {
+                padding: 50px 20px;
+            }
+
+            .hero h2 {
+                font-size: 1.8rem;
+            }
+
+            .hero-stats {
+                gap: 25px;
+            }
+
+            .hero-stat .number {
+                font-size: 1.8rem;
+            }
+
+            .section {
+                padding: 40px 20px;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 15px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .admin-content {
+                width: 95%;
+                max-height: 95vh;
+            }
+
+            .contact-section {
+                padding: 40px 20px;
+            }
+
+            footer .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+
+        /* ===== SCROLL ===== */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* ===== ANIMATIONS ===== */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .product-card {
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        .product-card:nth-child(2) { animation-delay: 0.1s; }
+        .product-card:nth-child(3) { animation-delay: 0.2s; }
+        .product-card:nth-child(4) { animation-delay: 0.3s; }
+        .product-card:nth-child(5) { animation-delay: 0.4s; }
+        .product-card:nth-child(6) { animation-delay: 0.5s; }
+
+        /* Search */
+        .search-bar {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 25px;
+        }
+
+        .search-bar input {
+            width: 100%;
+            max-width: 500px;
+            padding: 12px 20px;
+            border: 2px solid var(--olive-pale);
+            border-radius: 30px;
+            font-size: 1rem;
+            background: white;
+            transition: all 0.3s;
+        }
+
+        .search-bar input:focus {
+            outline: none;
+            border-color: var(--olive-medium);
+            box-shadow: 0 0 0 4px rgba(107, 142, 35, 0.15);
+        }
+
+        /* Tabs in admin */
+        .admin-tabs {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--olive-pale);
+            padding-bottom: 0;
+        }
+
+        .admin-tab {
+            padding: 10px 20px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--text-light);
+            border-bottom: 3px solid transparent;
+            margin-bottom: -2px;
+            transition: all 0.3s;
+        }
+
+        .admin-tab.active {
+            color: var(--olive-dark);
+            border-bottom-color: var(--olive-medium);
+        }
+
+        .admin-tab:hover {
+            color: var(--olive-main);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <div class="header-top">
+            <div class="logo">
+                <div class="logo-icon">🛋️</div>
+                <div>
+                    <h1>Мебельные комплектующие и ткани</h1>
+                    <p>Всё для мебели в одном месте</p>
+                </div>
+            </div>
+            <div class="header-actions">
+                <button class="btn btn-secondary" onclick="openAdmin()">⚙️ Админ-панель</button>
+            </div>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#catalog" class="active">🏠 Каталог</a></li>
+                <li><a href="#about">ℹ️ О нас</a></li>
+                <li><a href="#contact">✉️ Связаться</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero">
+        <h2>Качественные мебельные комплектующие</h2>
+        <p>Ткани, фурнитура, механизмы и всё необходимое для производства и ремонта мебели</p>
+        <div class="hero-stats">
+            <div class="hero-stat">
+                <div class="number" id="stat-products">0</div>
+                <div class="label">Товаров</div>
+            </div>
+            <div class="hero-stat">
+                <div class="number">⭐</div>
+                <div class="label">Высокое качество</div>
+            </div>
+            <div class="hero-stat">
+                <div class="number">🚚</div>
+                <div class="label">Быстрая доставка</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CATALOG -->
+    <section class="section" id="catalog">
+        <div class="section-title">
+            <h2>Каталог товаров</h2>
+            <p>Выберите нужную категорию или найдите товар по названию</p>
+            <div class="divider"></div>
+        </div>
+
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="🔍 Поиск товаров..." oninput="filterProducts()">
+        </div>
+
+        <div class="catalog-filters">
+            <button class="filter-btn active" onclick="setFilter('all', this)">Все товары</button>
+            <button class="filter-btn" onclick="setFilter('ткань', this)">🧵 Ткани</button>
+            <button class="filter-btn" onclick="setFilter('фурнитура', this)">🔩 Фурнитура</button>
+            <button class="filter-btn" onclick="setFilter('механизм', this)">⚙️ Механизмы</button>
+            <button class="filter-btn" onclick="setFilter('ножки', this)">🦶 Ножки</button>
+            <button class="filter-btn" onclick="setFilter('другое', this)">📦 Другое</button>
+        </div>
+
+        <div class="products-grid" id="productsGrid">
+            <!-- Товары будут добавлены через JS -->
+        </div>
+
+        <div class="empty-state" id="emptyState" style="display:none;">
+            <div class="icon">📦</div>
+            <p>Товары не найдены. Добавьте товары через админ-панель.</p>
+        </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="section" id="about" style="background: white; border-radius: 20px; margin: 0 20px; box-shadow: var(--shadow);">
+        <div class="section-title">
+            <h2>О нашей компании</h2>
+            <div class="divider"></div>
+        </div>
+        <div style="max-width: 800px; margin: 0 auto; text-align: center;">
+            <p style="font-size: 1.1rem; color: var(--text-light); line-height: 1.8;">
+                Мы предлагаем широкий ассортимент мебельных комплектующих и тканей для производства и ремонта мебели.
+                В нашем каталоге вы найдёте обивочные ткани, мебельную фурнитуру, подъёмные механизмы, ножки для мебели,
+                крепёжные элементы и многое другое. Работаем как с оптовыми, так и с розничными покупателями.
+                Гарантируем высокое качество и доступные цены!
+            </p>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="contact-section" id="contact">
+        <div class="contact-container">
+            <h2>✉️ Напишите нам</h2>
+            <p>Оставьте сообщение и мы свяжемся с вами в ближайшее время</p>
+            <form class="contact-form" onsubmit="sendMessage(event)">
+                <div class="form-group">
+                    <label>Ваше имя</label>
+                    <input type="text" id="msgName" placeholder="Введите ваше имя" required>
+                </div>
+                <div class="form-group">
+                    <label>Телефон или Email</label>
+                    <input type="text" id="msgContact" placeholder="+7 (___) ___-__-__ или email" required>
+                </div>
+                <div class="form-group">
+                    <label>Сообщение</label>
+                    <textarea id="msgText" placeholder="Ваш вопрос или заказ..." required></textarea>
+                </div>
+                <button type="submit" class="btn-submit">Отправить сообщение 📩</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-content">
+            <div>
+                <h3>🛋️ Мебельные комплектующие</h3>
+                <p>Всё для мебели в одном месте. Качественные комплектующие и ткани по доступным ценам.</p>
+            </div>
+            <div>
+                <h3>Контакты</h3>
+                <p>📞 +7 (___) ___-__-__</p>
+                <p>📧 info@mebel-complect.ru</p>
+                <p>📍 Ваш адрес</p>
+            </div>
+            <div>
+                <h3>Категории</h3>
+                <p><a href="#">🧵 Обивочные ткани</a></p>
+                <p><a href="#">🔩 Фурнитура</a></p>
+                <p><a href="#">⚙️ Механизмы</a></p>
+                <p><a href="#">🦶 Ножки и опоры</a></p>
+            </div>
+        </div>
+        <div class="copyright">
+            © 2026 Мебельные комплектующие и ткани. Все права защищены.
+        </div>
+    </footer>
+
+    <!-- ADMIN PANEL -->
+    <div class="admin-panel" id="adminPanel">
+        <div class="admin-content">
+            <div class="admin-header">
+                <h2>⚙️ Админ-панель</h2>
+                <button class="close-btn" onclick="closeAdmin()">✕</button>
+            </div>
+            <div class="admin-body">
+                <div class="admin-tabs">
+                    <button class="admin-tab active" onclick="switchTab('add', this)">➕ Добавить товар</button>
+                    <button class="admin-tab" onclick="switchTab('list', this)">📋 Мои товары</button>
+                    <button class="admin-tab" onclick="switchTab('messages', this)">📩 Сообщения</button>
+                </div>
+
+                <!-- ADD PRODUCT TAB -->
+                <div class="tab-content active" id="tab-add">
+                    <form onsubmit="addProduct(event)">
+                        <div class="form-group">
+                            <label>Название товара *</label>
+                            <input type="text" id="prodName" placeholder="Например: Ткань Велюр Изумруд" required>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Цена (₽) *</label>
+                                <input type="number" id="prodPrice" placeholder="1500" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Категория *</label>
+                                <select id="prodCategory" required>
+                                    <option value="">Выберите...</option>
+                                    <option value="ткань">🧵 Ткань</option>
+                                    <option value="фурнитура">🔩 Фурнитура</option>
+                                    <option value="механизм">⚙️ Механизм</option>
+                                    <option value="ножки">🦶 Ножки</option>
+                                    <option value="другое">📦 Другое</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Описание</label>
+                            <textarea id="prodDesc" placeholder="Описание товара..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Изображение</label>
+                            <div class="image-upload" onclick="document.getElementById('prodImage').click()">
+                                <div class="icon">📷</div>
+                                <p>Нажмите для загрузки фото</p>
+                                <input type="file" id="prodImage" accept="image/*" onchange="previewImage(this)">
+                            </div>
+                            <img id="imagePreview" class="image-preview" style="display:none;">
+                        </div>
+                        <button type="submit" class="btn btn-olive" style="width:100%; padding:14px; font-size:1.1rem; justify-content:center;">
+                            ✅ Добавить товар
+                        </button>
+                    </form>
+                </div>
+
+                <!-- PRODUCTS LIST TAB -->
+                <div class="tab-content" id="tab-list">
+                    <div id="adminProductsList">
+                        <!-- Список товаров -->
+                    </div>
+                </div>
+
+                <!-- MESSAGES TAB -->
+                <div class="tab-content" id="tab-messages">
+                    <div id="messagesList">
+                        <!-- Сообщения -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PRODUCT DETAIL MODAL -->
+    <div class="modal-overlay" id="productModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 id="modalTitle">Товар</h3>
+                <button class="close-btn" onclick="closeModal()">✕</button>
+            </div>
+            <div class="modal-body" id="modalBody">
+            </div>
+        </div>
+    </div>
+
+    <!-- NOTIFICATION -->
+    <div class="notification" id="notification"></div>
+
+    <script>
+        // ===== DATA =====
+        let products = JSON.parse(localStorage.getItem('mebel_products')) || [];
+        let messages = JSON.parse(localStorage.getItem('mebel_messages')) || [];
+        let currentFilter = 'all';
+        let editingId = null;
+
+        // ===== INIT =====
+        document.addEventListener('DOMContentLoaded', () => {
+            renderProducts();
+            updateStats();
+        });
+
+        // ===== PRODUCTS =====
+        function addProduct(e) {
+            e.preventDefault();
+
+            const name = document.getElementById('prodName').value.trim();
+            const price = document.getElementById('prodPrice').value;
+            const category = document.getElementById('prodCategory').value;
+            const desc = document.getElementById('prodDesc').value.trim();
+            const imagePreview = document.getElementById('imagePreview');
+
+            const product = {
+                id: editingId || Date.now(),
+                name,
+                price: parseFloat(price),
+                category,
+                description: desc,
+                image: imagePreview.style.display !== 'none' ? imagePreview.src : '',
+                date: new Date().toLocaleDateString('ru-RU')
+            };
+
+            if (editingId) {
+                const index = products.findIndex(p => p.id === editingId);
+                if (index !== -1) {
+                    if (!product.image && products[index].image) {
+                        product.image = products[index].image;
+                    }
+                    products[index] = product;
+                }
+                editingId = null;
+                showNotification('Товар обновлён!', 'success');
+            } else {
+                products.push(product);
+                showNotification('Товар добавлен!', 'success');
+            }
+
+            saveProducts();
+            renderProducts();
+            updateStats();
+            renderAdminProducts();
+
+            // Reset form
+            e.target.reset();
+            imagePreview.style.display = 'none';
+        }
+
+        function deleteProduct(id) {
+            if (confirm('Удалить этот товар?')) {
+                products = products.filter(p => p.id !== id);
+                saveProducts();
+                renderProducts();
+                renderAdminProducts();
+                updateStats();
+                showNotification('Товар удалён', 'error');
+            }
+        }
+
+        function editProduct(id) {
+            const product = products.find(p => p.id === id);
+            if (!product) return;
+
+            editingId = id;
+            document.getElementById('prodName').value = product.name;
+            document.getElementById('prodPrice').value = product.price;
+            document.getElementById('prodCategory').value = product.category;
+            document.getElementById('prodDesc').value = product.description;
+
+            if (product.image) {
+                const preview = document.getElementById('imagePreview');
+                preview.src = product.image;
+                preview.style.display = 'block';
+            }
+
+            switchTab('add', document.querySelector('.admin-tab'));
+            showNotification('Редактирование товара', 'success');
+        }
+
+        function saveProducts() {
+            localStorage.setItem('mebel_products', JSON.stringify(products));
+        }
+
+        function renderProducts() {
+            const grid = document.getElementById('productsGrid');
+            const empty = document.getElementById('emptyState');
+            const search = document.getElementById('searchInput').value.toLowerCase();
+
+            let filtered = products.filter(p => {
+                const matchCategory = currentFilter === 'all' || p.category === currentFilter;
+                const matchSearch = p.name.toLowerCase().includes(search) ||
+                                   p.description.toLowerCase().includes(search);
+                return matchCategory && matchSearch;
+            });
+
+            if (filtered.length === 0) {
+                grid.innerHTML = '';
+                empty.style.display = 'block';
+                return;
+            }
+
+            empty.style.display = 'none';
+
+            const categoryIcons = {
+                'ткань': '🧵',
+                'фурнитура': '🔩',
+                'механизм': '⚙️',
+                'ножки': '🦶',
+                'другое': '📦'
+            };
+
+            grid.innerHTML = filtered.map(p => `
+                <div class="product-card">
+                    <div class="product-image">
+                        ${p.image
+                            ? `<img src="${p.image}" alt="${p.name}">`
+                            : `<span>${categoryIcons[p.category] || '📦'}</span>`
+                        }
+                        <span class="product-badge">${p.category}</span>
+                    </div>
+                    <div class="product-info">
+                        <h3>${p.name}</h3>
+                        <p class="description">${p.description || 'Без описания'}</p>
+                        <div class="product-price">${p.price.toLocaleString('ru-RU')} ₽</div>
+                        <div class="product-actions">
+                            <button class="btn btn-olive btn-small" onclick="openProductModal(${p.id})">👁️ Подробнее</button>
+                            <button class="btn btn-secondary btn-small" style="color: var(--olive-dark); border-color: var(--olive-pale);" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">✉️ Написать</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function filterProducts() {
+            renderProducts();
+        }
+
+        function setFilter(filter, btn) {
+            currentFilter = filter;
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            renderProducts();
+        }
+
+        function updateStats() {
+            document.getElementById('stat-products').textContent = products.length;
+        }
+
+        // ===== IMAGE =====
+        function previewImage(input) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const preview = document.getElementById('imagePreview');
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        // ===== PRODUCT MODAL =====
+        function openProductModal(id) {
+            const product = products.find(p => p.id === id);
+            if (!product) return;
+
+            document.getElementById('modalTitle').textContent = product.name;
+
+            const categoryIcons = {
+                'ткань': '🧵',
+                'фурнитура': '🔩',
+                'механизм': '⚙️',
+                'ножки': '🦶',
+                'другое': '📦'
+            };
+
+            document.getElementById('modalBody').innerHTML = `
+                ${product.image ? `<img src="${product.image}" style="width:100%; border-radius:12px; margin-bottom:15px;" alt="${product.name}">` : `<div style="text-align:center; font-size:5rem; margin-bottom:15px;">${categoryIcons[product.category] || '📦'}</div>`}
+                <p style="color: var(--text-light); margin-bottom:10px;">Категория: <strong>${product.category}</strong></p>
+                <p style="margin-bottom:15px; line-height:1.7;">${product.description || 'Описание отсутствует.'}</p>
+                <div style="background: var(--olive-bg); padding:15px; border-radius:12px; text-align:center; margin-bottom:20px;">
+                    <span style="font-size:1.8rem; font-weight:800; color: var(--olive-main);">${product.price.toLocaleString('ru-RU')} ₽</span>
+                </div>
+                <button class="btn btn-olive" style="width:100%; justify-content:center; padding:12px;" onclick="closeModal(); document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
+                    ✉️ Связаться по этому товару
+                </button>
+            `;
+
+            document.getElementById('productModal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('productModal').classList.remove('active');
+        }
+
+        // ===== MESSAGES =====
+        function sendMessage(e) {
+            e.preventDefault();
+
+            const msg = {
+                id: Date.now(),
+                name: document.getElementById('msgName').value.trim(),
+                contact: document.getElementById('msgContact').value.trim(),
+                text: document.getElementById('msgText').value.trim(),
+                date: new Date().toLocaleString('ru-RU')
+            };
+
+            messages.push(msg);
+            localStorage.setItem('mebel_messages', JSON.stringify(messages));
+
+            e.target.reset();
+            showNotification('Сообщение отправлено! Мы свяжемся с вами.', 'success');
+            renderMessages();
+        }
+
+        function renderMessages() {
+            const container = document.getElementById('messagesList');
+
+            if (messages.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="icon">📭</div>
+                        <p>Сообщений пока нет</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = messages.slice().reverse().map(m => `
+                <div class="message-card">
+                    <div class="msg-header">
+                        <span class="msg-name">👤 ${m.name} | ${m.contact}</span>
+                        <span class="msg-date">${m.date}</span>
+                    </div>
+                    <p class="msg-text">${m.text}</p>
+                    <button class="btn btn-danger btn-small" style="margin-top:10px;" onclick="deleteMessage(${m.id})">🗑️ Удалить</button>
+                </div>
+            `).join('');
+        }
+
+        function deleteMessage(id) {
+            messages = messages.filter(m => m.id !== id);
+            localStorage.setItem('mebel_messages', JSON.stringify(messages));
+            renderMessages();
+            showNotification('Сообщение удалено', 'error');
+        }
+
+        // ===== ADMIN =====
+        function openAdmin() {
+            document.getElementById('adminPanel').classList.add('active');
+            renderAdminProducts();
+            renderMessages();
+        }
+
+        function closeAdmin() {
+            document.getElementById('adminPanel').classList.remove('active');
+            editingId = null;
+        }
+
+        function switchTab(tab, btn) {
+            document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            btn.classList.add('active');
+            document.getElementById('tab-' + tab).classList.add('active');
+        }
+
+        function renderAdminProducts() {
+            const container = document.getElementById('adminProductsList');
+
+            if (products.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="icon">📦</div>
+                        <p>Товаров пока нет. Добавьте первый!</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = products.map(p => `
+                <div class="admin-product-item">
+                    ${p.image
+                        ? `<img src="${p.image}" alt="${p.name}">`
+                        : `<div style="width:60px;height:60px;background:var(--olive-bg);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;">📦</div>`
+                    }
+                    <div class="info">
+                        <h4>${p.name}</h4>
+                        <p>${p.price.toLocaleString('ru-RU')} ₽ | ${p.category}</p>
+                    </div>
+                    <div class="actions">
+                        <button class="btn btn-olive btn-small" onclick="editProduct(${p.id})">✏️</button>
+                        <button class="btn btn-danger btn-small" onclick="deleteProduct(${p.id})">🗑️</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // ===== NOTIFICATIONS =====
+        function showNotification(text, type = 'success') {
+            const notif = document.getElementById('notification');
+            notif.textContent = text;
+            notif.className = 'notification ' + type + ' show';
+
+            setTimeout(() => {
+                notif.classList.remove('show');
+            }, 3000);
+        }
+
+        // Close modals on overlay click
+        document.getElementById('adminPanel').addEventListener('click', function(e) {
+            if (e.target === this) closeAdmin();
+        });
+
+        document.getElementById('productModal').addEventListener('click', function(e) {
+            if (e.target === this) closeModal();
+        });
+    </script>
+</body>
+</html>
